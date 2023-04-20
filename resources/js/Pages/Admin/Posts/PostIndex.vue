@@ -79,9 +79,9 @@ const deletePost = id => {
                                     @close="closeModal"
                                 >
                                     <div class="p-6">
-                                        <h2 class="text-lg font-semibold text-slate-600">Are you sure to delete this role?</h2>
+                                        <h2 class="text-lg font-semibold text-slate-600">Are you sure to delete this post?</h2>
                                         <div class="mt-6 flex space-x-4">
-                                            <DangerButton @click="$event => deletPoste(post.id)">Delete</DangerButton>
+                                            <DangerButton @click="$event => deletePost(post.id)">Delete</DangerButton>
                                             <SecondaryButton @click="closeModal">Cancel</SecondaryButton>
                                         </div>
                                     </div>
