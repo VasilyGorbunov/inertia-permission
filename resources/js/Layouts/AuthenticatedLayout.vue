@@ -1,12 +1,12 @@
 <script setup>
-import { ref } from 'vue';
+import {ref} from 'vue';
 import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
-import { Link } from '@inertiajs/vue3';
-import { usePermission } from "@/Composables/permissions";
+import {Link} from '@inertiajs/vue3';
+import {usePermission} from "@/Composables/permissions";
 
 const showingNavigationDropdown = ref(false);
 const {hasRole} = usePermission()
@@ -44,6 +44,12 @@ const {hasRole} = usePermission()
                                 >
                                     Admin
                                 </NavLink>
+                                <NavLink
+                                    :href="route('posts.index')"
+                                    :active="route().current('posts.index')"
+                                >
+                                    Posts
+                                </NavLink>
                             </div>
                         </div>
 
@@ -76,7 +82,7 @@ const {hasRole} = usePermission()
                                     </template>
 
                                     <template #content>
-                                        <DropdownLink :href="route('profile.edit')"> Profile </DropdownLink>
+                                        <DropdownLink :href="route('profile.edit')"> Profile</DropdownLink>
                                         <DropdownLink :href="route('logout')" method="post" as="button">
                                             Log Out
                                         </DropdownLink>
@@ -139,7 +145,7 @@ const {hasRole} = usePermission()
                         </div>
 
                         <div class="mt-3 space-y-1">
-                            <ResponsiveNavLink :href="route('profile.edit')"> Profile </ResponsiveNavLink>
+                            <ResponsiveNavLink :href="route('profile.edit')"> Profile</ResponsiveNavLink>
                             <ResponsiveNavLink :href="route('logout')" method="post" as="button">
                                 Log Out
                             </ResponsiveNavLink>
@@ -151,13 +157,13 @@ const {hasRole} = usePermission()
             <!-- Page Heading -->
             <header class="bg-white dark:bg-gray-800 shadow" v-if="$slots.header">
                 <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                    <slot name="header" />
+                    <slot name="header"/>
                 </div>
             </header>
 
             <!-- Page Content -->
             <main>
-                <slot />
+                <slot/>
             </main>
         </div>
     </div>
