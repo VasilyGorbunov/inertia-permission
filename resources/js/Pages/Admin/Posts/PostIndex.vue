@@ -1,6 +1,7 @@
 <script setup>
 import AdminLayout from '@/Layouts/AdminLayout.vue';
 import {Head, Link, useForm} from '@inertiajs/vue3';
+import { usePermission } from "@/Composables/permissions";
 
 import Modal from '@/Components/Modal.vue';
 import DangerButton from '@/Components/DangerButton.vue'
@@ -15,6 +16,7 @@ import {ref} from "vue";
 defineProps(['posts']);
 
 const form = useForm({});
+const { hasPermission } = usePermission();
 
 const showConfirmDeletePostModal = ref(false);
 
@@ -40,12 +42,14 @@ const deletePost = id => {
         <div class="max-w-7xl mx-auto py-4">
             <div class="flex justify-between">
                 <h1>Posts</h1>
-                <Link
-                    :href="route('posts.create')"
-                    class="px-3 py-2 bg-indigo-500 hover:bg-indigo-700 text-white font-semibold rounded"
-                >
-                    New Post
-                </Link>
+                <template v-if="hasPermission('create post')">
+                    <Link
+                        :href="route('posts.create')"
+                        class="px-3 py-2 bg-indigo-500 hover:bg-indigo-700 text-white font-semibold rounded"
+                    >
+                        New Post
+                    </Link>
+                </template>
             </div>
 
             <div class="mt-6">
@@ -63,12 +67,14 @@ const deletePost = id => {
                             <TableDataCell>{{ post.title }}</TableDataCell>
                             <TableDataCell class="space-x-4">
                                 <Link
+                                    v-if="hasPermission('update post')"
                                     :href="route('posts.edit', post.id)"
                                     class="text-green-400 hover:text-green-600"
                                 >
                                     Edit
                                 </Link>
                                 <button
+                                    v-if="hasPermission('delete post')"
                                     @click="confirmDeletePost"
                                     class="text-red-400 hover:text-red-600"
                                 >
